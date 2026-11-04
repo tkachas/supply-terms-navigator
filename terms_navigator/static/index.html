@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сверка условий поставки</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Сверка условий поставки <span class="muted">прототип</span></div>
+  <label class="checkdate">Дата проверки
+    <input type="date" id="checkDate">
+  </label>
+  <div class="actions">
+    <label class="btn primary">Загрузить TXT
+      <input type="file" id="fileInput" accept=".txt,text/plain" multiple hidden>
+    </label>
+    <button class="btn" id="loadSamples" title="Загрузить 6 учебных документов из папки documents/">Демо-набор</button>
+    <button class="btn ghost" id="clearAll">Очистить</button>
+  </div>
+</header>
+
+<main class="layout">
+  <div class="content">
+    <section id="dropzone" class="dropzone">
+      <div class="dz-hint">Перетащите сюда TXT-файлы договоров, допсоглашений и писем.
+        Тип документа и связь с договором определяются по тексту, а не по имени файла.</div>
+      <ul id="docList" class="doclist"></ul>
+    </section>
+
+    <section id="globalIssues"></section>
+
+    <section class="card">
+      <h2>Договоры на <span id="dateLabel"></span></h2>
+      <div class="legend">
+        <span class="tag amended">изменено ДС</span>
+        <span class="tag no_data">нет данных</span>
+        <span class="tag needs_review">требует проверки</span>
+        <span class="tag pending">не согласовано, не учтено</span>
+      </div>
+      <div class="table-wrap">
+        <table id="contracts">
+          <thead><tr>
+            <th>Договор</th><th>Поставщик</th><th>Сумма, ₽</th><th>Срок поставки</th>
+            <th>Несогласованные изменения</th><th></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="emptyHint" class="muted">Загрузите документы, чтобы увидеть таблицу.</p>
+    </section>
+
+    <section class="card">
+      <h2>Вопросы</h2>
+      <div class="presets" id="presets"></div>
+      <div class="builder">
+        <select id="qType">
+          <option value="delivery_date">Срок поставки по договору</option>
+          <option value="amount">Сумма договора</option>
+          <option value="deliveries_before">Поставки раньше даты + несогласованные изменения срока</option>
+        </select>
+        <select id="qContract"></select>
+        <input type="date" id="qBefore" value="2026-04-01" hidden>
+        <button class="btn primary" id="qAsk">Ответить</button>
+      </div>
+      <div id="answer"></div>
+    </section>
+  </div>
+
+  <aside class="source" id="source">
+    <div class="source-empty muted">Нажмите на ссылку-основание (📄), чтобы открыть исходный текст на нужном абзаце.</div>
+  </aside>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
